@@ -61,16 +61,31 @@ class _DashboardState extends State<Dashboard> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 32, right: 32, top: 32),
-                child: Text(
-                  "Upcoming Movie",
-                  style: TextStyle(
-                    fontSize: 19,
-                    fontWeight: FontWeight.w800,
-                    color: textColor.withOpacity(0.5),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 32, right: 32, top: 32),
+                    child: Text(
+                      "Upcoming Movie",
+                      style: TextStyle(
+                        fontSize: 19,
+                        fontWeight: FontWeight.w800,
+                        color: textColor.withOpacity(0.5),
+                      ),
+                    ),
                   ),
-                ),
+                  Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 32, right: 32, top: 32),
+                    child: Text(
+                      "See All",
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: redColor,
+                      ),
+                    ),
+                  ),
+                ],
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
@@ -85,9 +100,9 @@ class _DashboardState extends State<Dashboard> {
                               ConnectionState.waiting) {
                             return Center(
                               child: CircularProgressIndicator(
-                                backgroundColor: mainColor,
-                              ),
-                            );
+                                valueColor: AlwaysStoppedAnimation<Color>
+                                (redColor),
+                            ));
                           } else if (snapshot.hasError) {
                             return Text("Error");
                           } else {
@@ -143,16 +158,31 @@ class _DashboardState extends State<Dashboard> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 32, right: 32, top: 32),
-                child: Text(
-                  "New",
-                  style: TextStyle(
-                    fontSize: 19,
-                    fontWeight: FontWeight.w800,
-                    color: textColor.withOpacity(0.5),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 32, right: 32, top: 32),
+                    child: Text(
+                      "New",
+                      style: TextStyle(
+                        fontSize: 19,
+                        fontWeight: FontWeight.w800,
+                        color: textColor.withOpacity(0.5),
+                      ),
+                    ),
                   ),
-                ),
+                  Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 32, right: 32, top: 32),
+                    child: Text(
+                      "See All",
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: redColor,
+                      ),
+                    ),
+                  ),
+                ],
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
@@ -167,9 +197,9 @@ class _DashboardState extends State<Dashboard> {
                               ConnectionState.waiting) {
                             return Center(
                               child: CircularProgressIndicator(
-                                backgroundColor: mainColor,
-                              ),
-                            );
+                                valueColor: AlwaysStoppedAnimation<Color>
+                                (redColor),
+                            ));
                           } else if (snapshot.hasError) {
                             return Text("Error");
                           } else {
@@ -178,39 +208,52 @@ class _DashboardState extends State<Dashboard> {
                               itemCount: 10,
                               itemBuilder: (context, index) {
                                 var newUpload = snapshot.data.result[index];
-                                return Card(
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
                                   child: Column(
                                     children: [
-                                      Image.network(
-                                        newUpload.thumbnail,
-                                        fit: BoxFit.cover,
-                                      ),
                                       Container(
+                                        height: 250,
                                         width: 150,
-                                        margin: EdgeInsets.only(
-                                            left: 10, right: 10),
-                                        child: Column(
-                                          children: [
-                                            Container(
-                                              height: 45,
-                                              child: Text(
-                                                newUpload.title,
-                                                textAlign: TextAlign.center,
-                                                maxLines: 2,
-                                                style: TextStyle(
-                                                  fontSize: 13,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: Colors.black,
-                                                ),
-                                              ),
+                                        alignment: Alignment.bottomCenter,
+                                        decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                                image: NetworkImage(
+                                                    newUpload.thumbnail),
+                                                fit: BoxFit.cover),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(20))),
+                                        child: Container(
+                                          width: 250,
+                                          height: 60,
+                                          decoration: BoxDecoration(
+                                            borderRadius: new BorderRadius.only(
+                                              bottomLeft:
+                                                  const Radius.circular(20),
+                                              bottomRight:
+                                                  const Radius.circular(20),
                                             ),
-                                            Row(
+                                            gradient: LinearGradient(
+                                                begin: Alignment.bottomCenter,
+                                                end: Alignment.topCenter,
+                                                colors: [
+                                                  Colors.black
+                                                      .withOpacity(0.60),
+                                                  Colors.transparent,
+                                                ]),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.end,
                                               children: [
                                                 Row(
                                                   children: [
                                                     Container(
                                                       child: Icon(
                                                         Icons.star,
+                                                        color: Colors.white,
                                                         size: 20.0,
                                                       ),
                                                     ),
@@ -220,7 +263,7 @@ class _DashboardState extends State<Dashboard> {
                                                         fontSize: 13,
                                                         fontWeight:
                                                             FontWeight.w400,
-                                                        color: Colors.black,
+                                                        color: Colors.white,
                                                       ),
                                                     ),
                                                   ],
@@ -231,6 +274,7 @@ class _DashboardState extends State<Dashboard> {
                                                     Container(
                                                       child: Icon(
                                                         Icons.timelapse,
+                                                        color: Colors.white,
                                                         size: 20.0,
                                                       ),
                                                     ),
@@ -240,23 +284,34 @@ class _DashboardState extends State<Dashboard> {
                                                         fontSize: 13,
                                                         fontWeight:
                                                             FontWeight.w400,
-                                                        color: Colors.black,
+                                                        color: Colors.white,
                                                       ),
                                                     ),
                                                   ],
                                                 ),
                                               ],
                                             ),
-                                          ],
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          width: 125,
+                                          child: Text(
+                                            newUpload.title,
+                                            textAlign: TextAlign.center,
+                                            maxLines: 2,
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400,
+                                              color: textColor,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ],
                                   ),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  elevation: 5,
-                                  margin: EdgeInsets.all(10),
                                 );
                               },
                             );
@@ -265,16 +320,31 @@ class _DashboardState extends State<Dashboard> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 32, right: 32, top: 32),
-                child: Text(
-                  "Indonesia Banget",
-                  style: TextStyle(
-                    fontSize: 19,
-                    fontWeight: FontWeight.w800,
-                    color: textColor.withOpacity(0.5),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 32, right: 32, top: 32),
+                    child: Text(
+                      "Indonesia Banget",
+                      style: TextStyle(
+                        fontSize: 19,
+                        fontWeight: FontWeight.w800,
+                        color: textColor.withOpacity(0.5),
+                      ),
+                    ),
                   ),
-                ),
+                  Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 32, right: 32, top: 32),
+                    child: Text(
+                      "See All",
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: redColor,
+                      ),
+                    ),
+                  ),
+                ],
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
@@ -289,9 +359,9 @@ class _DashboardState extends State<Dashboard> {
                               ConnectionState.waiting) {
                             return Center(
                               child: CircularProgressIndicator(
-                                backgroundColor: mainColor,
-                              ),
-                            );
+                                valueColor: AlwaysStoppedAnimation<Color>
+                                (redColor),
+                            ));
                           } else if (snapshot.hasError) {
                             return Text("Error");
                           } else {
@@ -413,16 +483,31 @@ class _DashboardState extends State<Dashboard> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 32, right: 32, top: 32),
-                child: Text(
-                  "Action Movie",
-                  style: TextStyle(
-                    fontSize: 19,
-                    fontWeight: FontWeight.w800,
-                    color: textColor.withOpacity(0.5),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 32, right: 32, top: 32),
+                    child: Text(
+                      "Action Movie",
+                      style: TextStyle(
+                        fontSize: 19,
+                        fontWeight: FontWeight.w800,
+                        color: textColor.withOpacity(0.5),
+                      ),
+                    ),
                   ),
-                ),
+                  Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 32, right: 32, top: 32),
+                    child: Text(
+                      "See All",
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: redColor,
+                      ),
+                    ),
+                  ),
+                ],
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
@@ -437,9 +522,9 @@ class _DashboardState extends State<Dashboard> {
                               ConnectionState.waiting) {
                             return Center(
                               child: CircularProgressIndicator(
-                                backgroundColor: mainColor,
-                              ),
-                            );
+                                valueColor: AlwaysStoppedAnimation<Color>
+                                (redColor),
+                            ));
                           } else if (snapshot.hasError) {
                             return Text("Error");
                           } else {
@@ -448,90 +533,109 @@ class _DashboardState extends State<Dashboard> {
                               itemCount: snapshot.data.result.length,
                               itemBuilder: (context, index) {
                                 var actionMovie = snapshot.data.result[index];
-                                return Container(
-                                  child: Container(
-                                    child: Card(
-                                      child: Column(
-                                        children: [
-                                          Image.network(
-                                            actionMovie.thumbnail,
-                                            fit: BoxFit.cover,
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        height: 250,
+                                        width: 150,
+                                        alignment: Alignment.bottomCenter,
+                                        decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                                image: NetworkImage(
+                                                    actionMovie.thumbnail),
+                                                fit: BoxFit.cover),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(20))),
+                                        child: Container(
+                                          width: 250,
+                                          height: 60,
+                                          decoration: BoxDecoration(
+                                            borderRadius: new BorderRadius.only(
+                                              bottomLeft:
+                                                  const Radius.circular(20),
+                                              bottomRight:
+                                                  const Radius.circular(20),
+                                            ),
+                                            gradient: LinearGradient(
+                                                begin: Alignment.bottomCenter,
+                                                end: Alignment.topCenter,
+                                                colors: [
+                                                  Colors.black
+                                                      .withOpacity(0.60),
+                                                  Colors.transparent,
+                                                ]),
                                           ),
-                                          Container(
-                                            width: 150,
-                                            margin: EdgeInsets.only(
-                                                left: 10, right: 10),
-                                            child: Column(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.end,
                                               children: [
-                                                Container(
-                                                  height: 45,
-                                                  child: Text(
-                                                    actionMovie.title,
-                                                    textAlign: TextAlign.center,
-                                                    maxLines: 2,
-                                                    style: TextStyle(
-                                                      fontSize: 13,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      color: Colors.black,
-                                                    ),
-                                                  ),
-                                                ),
                                                 Row(
                                                   children: [
-                                                    Row(
-                                                      children: [
-                                                        Container(
-                                                          child: Icon(
-                                                            Icons.star,
-                                                            size: 20.0,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          actionMovie.rating,
-                                                          style: TextStyle(
-                                                            fontSize: 13,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            color: Colors.black,
-                                                          ),
-                                                        ),
-                                                      ],
+                                                    Container(
+                                                      child: Icon(
+                                                        Icons.star,
+                                                        color: Colors.white,
+                                                        size: 20.0,
+                                                      ),
                                                     ),
-                                                    Spacer(),
-                                                    Row(
-                                                      children: [
-                                                        Container(
-                                                          child: Icon(
-                                                            Icons.timelapse,
-                                                            size: 20.0,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          actionMovie.duration,
-                                                          style: TextStyle(
-                                                            fontSize: 13,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            color: Colors.black,
-                                                          ),
-                                                        ),
-                                                      ],
+                                                    Text(
+                                                      actionMovie.rating,
+                                                      style: TextStyle(
+                                                        fontSize: 13,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Spacer(),
+                                                Row(
+                                                  children: [
+                                                    Container(
+                                                      child: Icon(
+                                                        Icons.timelapse,
+                                                        color: Colors.white,
+                                                        size: 20.0,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      actionMovie.duration,
+                                                      style: TextStyle(
+                                                        fontSize: 13,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: Colors.white,
+                                                      ),
                                                     ),
                                                   ],
                                                 ),
                                               ],
                                             ),
                                           ),
-                                        ],
+                                        ),
                                       ),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          width: 125,
+                                          child: Text(
+                                            actionMovie.title,
+                                            textAlign: TextAlign.center,
+                                            maxLines: 2,
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400,
+                                              color: textColor,
+                                            ),
+                                          ),
+                                        ),
                                       ),
-                                      elevation: 5,
-                                      margin: EdgeInsets.all(10),
-                                    ),
+                                    ],
                                   ),
                                 );
                               },

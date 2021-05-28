@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:cinema_app/screen/dashboard.dart';
 import 'package:cinema_app/screen/page_view.dart';
 import 'package:cinema_app/widgets/color.dart';
 

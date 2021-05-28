@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:cinema_app/models/new_movie.dart';
 import 'package:cinema_app/models/indonesia_movie.dart';

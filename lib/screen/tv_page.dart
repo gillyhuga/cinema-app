@@ -24,7 +24,7 @@ class _TvState extends State<Tv> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: backgroundColor,
       body: SingleChildScrollView(
         child: SafeArea(
           child: Column(
@@ -66,9 +66,9 @@ class _TvState extends State<Tv> {
                                 ConnectionState.waiting) {
                               return Center(
                                 child: CircularProgressIndicator(
-                                  backgroundColor: mainColor,
-                                ),
-                              );
+                                valueColor: AlwaysStoppedAnimation<Color>
+                                (redColor),
+                            ));
                             } else if (snapshot.hasError) {
                               return Text("Error");
                             } else {
