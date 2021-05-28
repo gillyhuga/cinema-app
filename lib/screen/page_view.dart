@@ -1,16 +1,16 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:cinema_app/screen/dashboard.dart';
 import 'package:cinema_app/screen/tv_page.dart';
-class page extends StatefulWidget {
-  page({Key key}) : super(key: key);
+
+
+class Slide extends StatefulWidget {
+  Slide({Key key}) : super(key: key);
 
   @override
-  _pageState createState() => _pageState();
+  _SlideState createState() => _SlideState();
 }
 
-class _pageState extends State<page> {
+class _SlideState extends State<Slide> {
   @override
   Widget build(BuildContext context) {
     return Container(

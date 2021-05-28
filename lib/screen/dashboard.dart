@@ -6,7 +6,7 @@ import 'package:cinema_app/services/movieApi.dart';
 import 'package:cinema_app/models/new_movie.dart';
 import 'package:cinema_app/models/indonesia_movie.dart';
 import 'package:cinema_app/models/upcoming_movie.dart';
-
+import 'package:cinema_app/models/action_movie.dart';
 
 MovieApi _api = MovieApi();
 
@@ -19,6 +19,7 @@ class _DashboardState extends State<Dashboard> {
   Future<NewUpload> newUpload;
   Future<Indonesia> indonesiaMovie;
   Future<Upcoming> upcomingMovie;
+  Future<ActionMovie> actionMovie;
 
   @override
   void initState() {
@@ -26,6 +27,7 @@ class _DashboardState extends State<Dashboard> {
     newUpload = _api.getNewUpload();
     indonesiaMovie = _api.getIndonesia();
     upcomingMovie = _api.getUpcoming();
+    actionMovie = _api.getAction();
   }
 
   @override
@@ -75,7 +77,7 @@ class _DashboardState extends State<Dashboard> {
                 child: Expanded(
                   child: Container(
                     margin: EdgeInsets.only(left: 18),
-                    height: 325,
+                    height: 320,
                     child: FutureBuilder<Upcoming>(
                         future: upcomingMovie,
                         builder: (context, snapshot) {
@@ -94,48 +96,45 @@ class _DashboardState extends State<Dashboard> {
                               itemCount: 10,
                               itemBuilder: (context, index) {
                                 var upcomingMovie = snapshot.data.result[index];
-                                return Container(
-                                  child: Container(
-                                    child: Card(
-                                      child: Column(
-                                        children: [
-                                          Image.network(
-                                            upcomingMovie.thumbnail,
-                                            fit: BoxFit.cover,
-                                          ),
-                                          Container(
-                                            width: 150,
-                                            margin: EdgeInsets.only(
-                                                left: 10, right: 10),
-                                            child: Column(
-                                              children: [
-                                                Container(
-                                                  height: 45,
-                                                  child: Text(
-                                                    upcomingMovie.title,
-                                                    textAlign: TextAlign.center,
-                                                    maxLines: 2,
-                                                    style: TextStyle(
-                                                      fontSize: 13,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      color: Colors.black,
-                                                    ),
-                                                  ),
-                                                ),
-                                              
-                                              
-                                              ]),
-                                          )],
+                                return Column(
+                                  children: [
+                                    Card(
+                                      semanticContainer: true,
+                                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                                      child: Image.network(
+                                        upcomingMovie.thumbnail,
+                                        fit: BoxFit.cover,
                                       ),
                                       shape: RoundedRectangleBorder(
                                         borderRadius:
-                                            BorderRadius.circular(10.0),
+                                            BorderRadius.circular(20.0),
                                       ),
                                       elevation: 5,
                                       margin: EdgeInsets.all(10),
                                     ),
-                                  ),
+                                    Container(
+                                      width: 150,
+                                      margin:
+                                          EdgeInsets.only(left: 10, right: 10),
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            height: 45,
+                                            child: Text(
+                                              upcomingMovie.title,
+                                              textAlign: TextAlign.center,
+                                              maxLines: 2,
+                                              style: TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w400,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 );
                               },
                             );
@@ -179,91 +178,85 @@ class _DashboardState extends State<Dashboard> {
                               itemCount: 10,
                               itemBuilder: (context, index) {
                                 var newUpload = snapshot.data.result[index];
-                                return Container(
-                                  child: Container(
-                                    child: Card(
-                                      child: Column(
-                                        children: [
-                                          Image.network(
-                                            newUpload.thumbnail,
-                                            fit: BoxFit.cover,
-                                          ),
-                                          Container(
-                                            width: 150,
-                                            margin: EdgeInsets.only(
-                                                left: 10, right: 10),
-                                            child: Column(
-                                              children: [
-                                                Container(
-                                                  height: 45,
-                                                  child: Text(
-                                                    newUpload.title,
-                                                    textAlign: TextAlign.center,
-                                                    maxLines: 2,
-                                                    style: TextStyle(
-                                                      fontSize: 13,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      color: Colors.black,
-                                                    ),
-                                                  ),
+                                return Card(
+                                  child: Column(
+                                    children: [
+                                      Image.network(
+                                        newUpload.thumbnail,
+                                        fit: BoxFit.cover,
+                                      ),
+                                      Container(
+                                        width: 150,
+                                        margin: EdgeInsets.only(
+                                            left: 10, right: 10),
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              height: 45,
+                                              child: Text(
+                                                newUpload.title,
+                                                textAlign: TextAlign.center,
+                                                maxLines: 2,
+                                                style: TextStyle(
+                                                  fontSize: 13,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Colors.black,
                                                 ),
+                                              ),
+                                            ),
+                                            Row(
+                                              children: [
                                                 Row(
                                                   children: [
-                                                    Row(
-                                                      children: [
-                                                        Container(
-                                                          child: Icon(
-                                                            Icons.star,
-                                                            size: 20.0,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          newUpload.rating,
-                                                          style: TextStyle(
-                                                            fontSize: 13,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            color: Colors.black,
-                                                          ),
-                                                        ),
-                                                      ],
+                                                    Container(
+                                                      child: Icon(
+                                                        Icons.star,
+                                                        size: 20.0,
+                                                      ),
                                                     ),
-                                                    Spacer(),
-                                                    Row(
-                                                      children: [
-                                                        Container(
-                                                          child: Icon(
-                                                            Icons.timelapse,
-                                                            size: 20.0,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          newUpload.duration,
-                                                          style: TextStyle(
-                                                            fontSize: 13,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            color: Colors.black,
-                                                          ),
-                                                        ),
-                                                      ],
+                                                    Text(
+                                                      newUpload.rating,
+                                                      style: TextStyle(
+                                                        fontSize: 13,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: Colors.black,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Spacer(),
+                                                Row(
+                                                  children: [
+                                                    Container(
+                                                      child: Icon(
+                                                        Icons.timelapse,
+                                                        size: 20.0,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      newUpload.duration,
+                                                      style: TextStyle(
+                                                        fontSize: 13,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: Colors.black,
+                                                      ),
                                                     ),
                                                   ],
                                                 ),
                                               ],
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      ),
-                                      elevation: 5,
-                                      margin: EdgeInsets.all(10),
-                                    ),
+                                    ],
                                   ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  elevation: 5,
+                                  margin: EdgeInsets.all(10),
                                 );
                               },
                             );
@@ -306,14 +299,162 @@ class _DashboardState extends State<Dashboard> {
                               scrollDirection: Axis.horizontal,
                               itemCount: snapshot.data.result.length,
                               itemBuilder: (context, index) {
-                                var newUpload = snapshot.data.result[index];
+                                var indonesiaMovie =
+                                    snapshot.data.result[index];
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        height: 250,
+                                        width: 150,
+                                        alignment: Alignment.bottomCenter,
+                                        decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                                image: NetworkImage(
+                                                    indonesiaMovie.thumbnail),
+                                                fit: BoxFit.cover),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(20))),
+                                        child: Container(
+                                          width: 250,
+                                          height: 60,
+                                          decoration: BoxDecoration(
+                                            borderRadius: new BorderRadius.only(
+                                              bottomLeft:
+                                                  const Radius.circular(20),
+                                              bottomRight:
+                                                  const Radius.circular(20),
+                                            ),
+                                            gradient: LinearGradient(
+                                                begin: Alignment.bottomCenter,
+                                                end: Alignment.topCenter,
+                                                colors: [
+                                                  Colors.black
+                                                      .withOpacity(0.60),
+                                                  Colors.transparent,
+                                                ]),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.end,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Container(
+                                                      child: Icon(
+                                                        Icons.star,
+                                                        color: Colors.white,
+                                                        size: 20.0,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      indonesiaMovie.rating,
+                                                      style: TextStyle(
+                                                        fontSize: 13,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Spacer(),
+                                                Row(
+                                                  children: [
+                                                    Container(
+                                                      child: Icon(
+                                                        Icons.timelapse,
+                                                        color: Colors.white,
+                                                        size: 20.0,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      indonesiaMovie.duration,
+                                                      style: TextStyle(
+                                                        fontSize: 13,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          width: 125,
+                                          child: Text(
+                                            indonesiaMovie.title,
+                                            textAlign: TextAlign.center,
+                                            maxLines: 2,
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400,
+                                              color: textColor,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                          }
+                        }),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 32, right: 32, top: 32),
+                child: Text(
+                  "Action Movie",
+                  style: TextStyle(
+                    fontSize: 19,
+                    fontWeight: FontWeight.w800,
+                    color: textColor.withOpacity(0.5),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Expanded(
+                  child: Container(
+                    margin: EdgeInsets.only(left: 18),
+                    height: 350,
+                    child: FutureBuilder<ActionMovie>(
+                        future: actionMovie,
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Center(
+                              child: CircularProgressIndicator(
+                                backgroundColor: mainColor,
+                              ),
+                            );
+                          } else if (snapshot.hasError) {
+                            return Text("Error");
+                          } else {
+                            return ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: snapshot.data.result.length,
+                              itemBuilder: (context, index) {
+                                var actionMovie = snapshot.data.result[index];
                                 return Container(
                                   child: Container(
                                     child: Card(
                                       child: Column(
                                         children: [
                                           Image.network(
-                                            newUpload.thumbnail,
+                                            actionMovie.thumbnail,
                                             fit: BoxFit.cover,
                                           ),
                                           Container(
@@ -325,7 +466,7 @@ class _DashboardState extends State<Dashboard> {
                                                 Container(
                                                   height: 45,
                                                   child: Text(
-                                                    newUpload.title,
+                                                    actionMovie.title,
                                                     textAlign: TextAlign.center,
                                                     maxLines: 2,
                                                     style: TextStyle(
@@ -347,7 +488,7 @@ class _DashboardState extends State<Dashboard> {
                                                           ),
                                                         ),
                                                         Text(
-                                                          newUpload.rating,
+                                                          actionMovie.rating,
                                                           style: TextStyle(
                                                             fontSize: 13,
                                                             fontWeight:
@@ -367,7 +508,7 @@ class _DashboardState extends State<Dashboard> {
                                                           ),
                                                         ),
                                                         Text(
-                                                          newUpload.duration,
+                                                          actionMovie.duration,
                                                           style: TextStyle(
                                                             fontSize: 13,
                                                             fontWeight:
@@ -381,92 +522,6 @@ class _DashboardState extends State<Dashboard> {
                                                 ),
                                               ],
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      ),
-                                      elevation: 5,
-                                      margin: EdgeInsets.all(10),
-                                    ),
-                                  ),
-                                );
-                              },
-                            );
-                          }
-                        }),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 32, right: 32, top: 32),
-                child: Text(
-                  "Film Action",
-                  style: TextStyle(
-                    fontSize: 19,
-                    fontWeight: FontWeight.w800,
-                    color: textColor.withOpacity(0.5),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: Expanded(
-                  child: Container(
-                    margin: EdgeInsets.only(left: 18),
-                    height: 320,
-                    child: FutureBuilder<NewUpload>(
-                        future: newUpload,
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return Center(
-                              child: CircularProgressIndicator(
-                                backgroundColor: mainColor,
-                              ),
-                            );
-                          } else if (snapshot.hasError) {
-                            return Text("Error");
-                          } else {
-                            return ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: 7,
-                              itemBuilder: (context, index) {
-                                var newUpload = snapshot.data.result[index];
-                                return Container(
-                                  child: Container(
-                                    child: Card(
-                                      child: Column(
-                                        children: [
-                                          Image.network(
-                                            newUpload.thumbnail,
-                                            fit: BoxFit.cover,
-                                          ),
-                                          Text(
-                                            newUpload.title,
-                                            style: TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w400,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                Icons.star,
-                                                size: 20.0,
-                                              ),
-                                              Text(
-                                                newUpload.rating,
-                                                style: TextStyle(
-                                                  fontSize: 13,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: Colors.black,
-                                                ),
-                                              ),
-                                            ],
                                           ),
                                         ],
                                       ),

@@ -31,7 +31,7 @@ class _TvState extends State<Tv> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 18, right: 18, top: 32),
+                padding: const EdgeInsets.only(left: 32, right: 32, top: 32),
                 child: Text(
                   "Tv Series",
                   style: TextStyle(
@@ -42,9 +42,9 @@ class _TvState extends State<Tv> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 18, right: 18),
+                padding: const EdgeInsets.only(left: 32, right: 32, bottom: 24),
                 child: Text(
-                  "Find your favorite movie",
+                  "Find your favorite Tv Series",
                   style: TextStyle(
                     fontSize: 19,
                     fontWeight: FontWeight.w400,
@@ -52,47 +52,22 @@ class _TvState extends State<Tv> {
                   ),
                 ),
               ),
-              // Padding(
-              //   padding: const EdgeInsets.only(top: 15.0),
-              //   child: Center(
-              //     child: ConstrainedBox(
-              //       constraints: BoxConstraints.tightFor(width: 500, height: 50),
-              //       child: ElevatedButton(
-              //         style: ElevatedButton.styleFrom(
-              //           primary: mainColor, // background
-              //           onPrimary: Colors.white, // foreground
-              //         ),
-              //         onPressed: () {},
-              //         child: Row(
-              //           mainAxisAlignment: MainAxisAlignment.start,
-              //           children: [
-              //             Text(
-              //               'Search a Movie',
-              //               style: TextStyle(
-              //                 fontSize: 19,
-              //                 fontWeight: FontWeight.w400,
-              //                 color: textColor,
-              //               ),
-              //             ),
-              //           ],
-              //         ),
-              //       ),
-              //     ),
-              //   ),
-              // ),
- Expanded(
-                  child: Container(
-                    margin: EdgeInsets.only(left: 18),
-                    height: 550,
-                    child: FutureBuilder<Series>(
-                        future: series,
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return Center(
-                              child: CircularProgressIndicator(
-                                backgroundColor: mainColor,
-                              ),
+              Container(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 15.0),
+                  child: Expanded(
+                    child: Container(
+                      margin: EdgeInsets.only(left: 18),
+                      height: 600,
+                      child: FutureBuilder<Series>(
+                          future: series,
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  backgroundColor: mainColor,
+                                ),
                               );
                             } else if (snapshot.hasError) {
                               return Text("Error");
@@ -101,27 +76,51 @@ class _TvState extends State<Tv> {
                                 scrollDirection: Axis.horizontal,
                                 itemCount: snapshot.data.result.length,
                                 itemBuilder: (context, index) {
-                                var series = snapshot.data.result[index];
-                                return Card(
-                                  semanticContainer: true,
-                                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                                  child: Image.network(
-                                    series.thumbnail,
-                                    fit: BoxFit.cover,
-                                  ),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30.0),
-                                  ),
-                                  elevation: 5,
-                                  margin: EdgeInsets.all(10),
-                                );
-                              },
-                            );
-                          }
-                        }),
+                                  var series = snapshot.data.result[index];
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          height: 500,
+                                          width: 350,
+                                          decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: NetworkImage(
+                                                      series.thumbnail),
+                                                  fit: BoxFit.cover),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(20))),
+                                          child:
+                                              null /* add child content here */,
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                            width: 300,
+                                            child: Text(
+                                              series.title,
+                                              textAlign: TextAlign.center,
+                                              maxLines: 2,
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w400,
+                                                color: textColor,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              );
+                            }
+                          }),
+                    ),
                   ),
                 ),
-         
+              ),
             ],
           ),
         ),

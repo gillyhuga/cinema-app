@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         backgroundColor: backgroundColor,
         fontFamily: "Avenir",
       ),
-      home: page(),
+      home: Slide(),
     );
   }
 }

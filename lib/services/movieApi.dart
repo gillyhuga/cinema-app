@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:cinema_app/models/new_movie.dart';
 import 'package:cinema_app/models/indonesia_movie.dart';
 import 'package:cinema_app/models/upcoming_movie.dart';
 import 'package:cinema_app/models/series_movie.dart';
+import 'package:cinema_app/models/action_movie.dart';
 
 class MovieApi {
   Future<NewUpload> getNewUpload() async {
@@ -44,6 +46,17 @@ class MovieApi {
         await http.get(Uri.parse('https://api-lk21.herokuapp.com/tv'));
     if (response.statusCode == 200) {
       Series data = new Series.fromJson(json.decode(response.body));
+      return data;
+    } else {
+      throw Exception('error');
+    }
+  }
+
+  Future<ActionMovie> getAction() async {
+    final response =
+        await http.get(Uri.parse('https://api-lk21.herokuapp.com/genre?genre=action'));
+    if (response.statusCode == 200) {
+      ActionMovie data = new ActionMovie.fromJson(json.decode(response.body));
       return data;
     } else {
       throw Exception('error');
