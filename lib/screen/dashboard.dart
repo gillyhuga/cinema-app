@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:cinema_app/widgets/color.dart';
+import 'package:cinema_app/color.dart';
 import 'package:cinema_app/services/movieApi.dart';
 import 'package:cinema_app/models/new_movie.dart';
 import 'package:cinema_app/models/indonesia_movie.dart';
